@@ -83,8 +83,6 @@ class ConsultarRemessa:
 
             page.update()
             
-
-    
         def coletaProcessos(e):
             
             caixaDeDialogoSimples(titulo="Pesquisando remessa", content=ft.ProgressBar(color="amber", bgcolor="#eeeeee"))
@@ -97,7 +95,10 @@ class ConsultarRemessa:
             page.dialog.open=False
             txtfield_buscaRemessa.focus()
             page.update()
-            
+        
+        def imprimir_remesa(e):
+            pass
+        
         ##
         #COMPONENTES
         ##
@@ -348,6 +349,37 @@ class ConsultarRemessa:
                                                         )
                                                     ]
                                                 ),
+                                                ft.Row(),
+                                                ft.Row(
+                                                    alignment=ft.MainAxisAlignment.START,
+                                                    vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                                                    controls=[
+                                                        ft.Column(
+                                                            spacing=2,
+                                                            alignment=ft.MainAxisAlignment.CENTER,
+                                                            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                                                            controls=[
+                                                                ft.ElevatedButton(
+                                                                    width=100,
+                                                                    content=ft.Row(
+                                                                        [
+                                                                            ft.Icon(name=ft.icons.PRINT, size=45),
+                                                                        ],
+                                                                        alignment=ft.MainAxisAlignment.CENTER,
+                                                                        vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                                                                        
+                                                                    ),
+                                                                    style=ft.ButtonStyle(
+                                                                        shape=ft.RoundedRectangleBorder(radius=10),
+                                                                    ),
+                                                                    bgcolor="#eeeeee",
+                                                                    on_click=imprimir_remesa,
+                                                                ),
+                                                            ]
+                                                        )
+                                                    ]
+                                                ),
+                                                
                                             ]
                                         ),           
                                         ft.Column(

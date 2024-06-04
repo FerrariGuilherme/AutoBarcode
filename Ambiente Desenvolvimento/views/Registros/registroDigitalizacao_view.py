@@ -7,9 +7,11 @@ from dependencias.database import bd
 from random import randint
 from dependencias.dep_impressao.impressao import criar_pdf
 from dependencias.apotamento_ambiente import aponta_pdf
+from dependencias.apotamento_ambiente import caminho_json
 from win32 import win32api
 from win32 import win32print
 from datetime import date
+import json
 
 
 
@@ -299,7 +301,20 @@ class DigitalizacaoView:
                 close_dlg(e)
                 caixaDeDialogoSimples(titulo="Salvando remessa", content=ft.ProgressBar(color="amber", bgcolor="#eeeeee"))
                 
-                
+                #GERA JSON #
+                fromJSON = []
+                for processo in listagem_processos:
+                    dados = {
+                        "NumeroProcesso": f"{processo[0]}"
+                    }
+                    fromJSON.append(dados)
+
+                # Convertendo dados em JSON
+                json_string = json.dumps(fromJSON ,indent=4)  # indent=4 para uma formatação mais legível
+
+                # Escrevendo JSON em um arquivo
+                with open(f"caminho_json\\RD_{txtfield_remessa.value}.json", "w") as arquivo:
+                    arquivo.write(json_string)
                 
                 #Adicionar os processo da remessa na tabela processo_remessa
                 bd.alterar_database(f'UPDATE "processos.remessa" SET processos = "{listagem_processos}" WHERE remessa = "{txtfield_remessa.value}" AND tipo = "DIGITALIZACAO"')
