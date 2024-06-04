@@ -14,6 +14,7 @@ from views.Registros.registroDigitalizacao_view import DigitalizacaoView
 from views.Registros.registroDistribuicao_view import DistribuicaoView
 from views.Registros.historico_view import HistoricoView
 from views.Registros.consultar_remessa import ConsultarRemessa
+import certifi
 
 
 

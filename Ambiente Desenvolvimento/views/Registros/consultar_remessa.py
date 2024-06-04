@@ -3,6 +3,10 @@ from dependencias.database import bd
 import flet as ft
 import pickle
 import cryptocode
+from dependencias.dep_impressao.impressao import criar_pdf
+from dependencias.apotamento_ambiente import aponta_pdf
+from win32 import win32api
+from win32 import win32print
 
 class ConsultarRemessa:
     def __init__(self):
@@ -68,8 +72,18 @@ class ConsultarRemessa:
                     processos_da_remessa.append(processo)
                 
                 else:
-                    processo = ft.Text(value=f"{processo[0]}", size=15, weight=ft.FontWeight.W_500, selectable=True, text_align=ft.TextAlign.LEFT, height=25)
+                    processo = ft.Row(
+                        alignment=ft.MainAxisAlignment.START,
+                        vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                        controls=[
+                            ft.TextField(label=f"Processo",value=f"{processo[0]}", border="underline", width=175, text_size=12, text_style=ft.TextStyle(weight=ft.FontWeight.BOLD)),
+                            ft.TextField(label=f"Volumes",value=f"{processo[1]}", border="underline", width=50, text_size=12, label_style=ft.TextStyle(size=12)),
+                            ft.TextField(label=f"Apensos",value=f"{processo[2]}", border="underline", width=50, text_size=12, label_style=ft.TextStyle(size=12)),
+                        ]
+                    )
+                    # processo = ft.Text(value=f"{processo[0]}", size=15, weight=ft.FontWeight.W_500, selectable=True, text_align=ft.TextAlign.LEFT, height=25)
                     processos_da_remessa.append(processo)
+                    
             remessa = bd.consultar_database(f"""SELECT * FROM 'processos.remessa' WHERE remessa = '{lv_resultadoBusca.controls[0].value.split("-")[1][1:]}' and tipo = '{lv_resultadoBusca.controls[0].value.split("-")[0].replace(" ", "")}'""")[0]
             txtfield_Comarca.value = f"{remessa[4]}"
             txtfield_Responsavel.value = f"{remessa[5]}"
@@ -96,8 +110,58 @@ class ConsultarRemessa:
             txtfield_buscaRemessa.focus()
             page.update()
         
-        def imprimir_remesa(e):
-            pass
+        #Imprimir comprovante da remessa 
+        def imprimir(e):
+            
+            try:
+                txtfield_Comarca.error_text=""
+                txtfield_Responsavel.error_text=""
+                txtfield_NumeroRemessa.error_text=""
+                txtfield_Data.error_text=""
+                txtfield_Total.error_text=""
+                txtfield_Tipo.error_text=""
+            
+                match txtfield_Tipo.value:
+                    case "ENTRADA":
+                        tipo = "RE"
+                    case "SAIDA":
+                        tipo = "RS"
+                    case "DIGITALIZACAO":
+                        tipo = "RD"
+                    
+                
+                filename = f"{aponta_pdf}{tipo}_{txtfield_NumeroRemessa.value}_{txtfield_Comarca.value}.pdf"
+                printer_name = win32print.GetDefaultPrinter()
+
+                win32api.ShellExecute(
+                    0,
+                    "printto",
+                    filename,
+                    '"' + printer_name + '"',
+                    ".",
+                    0
+                )
+
+            except:
+                txtfield_Comarca.error_text=" "
+                txtfield_Comarca.error_style=ft.TextStyle(size=0)
+                
+                txtfield_Responsavel.error_text=" "
+                txtfield_Responsavel.error_style=ft.TextStyle(size=0)
+                
+                txtfield_NumeroRemessa.error_text=" "
+                txtfield_NumeroRemessa.error_style=ft.TextStyle(size=0)
+                
+                txtfield_Data.error_text=" "
+                txtfield_Data.error_style=ft.TextStyle(size=0)
+                
+                txtfield_Total.error_text=" "
+                txtfield_Total.error_style=ft.TextStyle(size=0)
+                
+                txtfield_Tipo.error_text=" "
+                txtfield_Tipo.error_style=ft.TextStyle(size=0)
+                
+            page.update()
         
         ##
         #COMPONENTES
@@ -109,17 +173,22 @@ class ConsultarRemessa:
         
         lista_de_remessas = ft.Column(spacing=0,controls=[])
         
-        
+        global txtfield_Comarca
         txtfield_Comarca = ft.TextField(width=230, height=35, read_only=True, content_padding=ft.padding.symmetric(horizontal=10), text_size=14) 
         
+        global txtfield_Responsavel
         txtfield_Responsavel = ft.TextField(width=230, height=35, read_only=True, content_padding=ft.padding.symmetric(horizontal=10), text_size=14)
         
+        global txtfield_NumeroRemessa
         txtfield_NumeroRemessa = ft.TextField(width=230, height=35, read_only=True, content_padding=ft.padding.symmetric(horizontal=10), text_size=14)
         
+        global txtfield_Data
         txtfield_Data = ft.TextField(width=230, height=35, read_only=True, content_padding=ft.padding.symmetric(horizontal=10), text_size=14)
         
+        global txtfield_Total
         txtfield_Total = ft.TextField(width=170, height=35, read_only=True, content_padding=ft.padding.symmetric(horizontal=10), text_size=14)
         
+        global txtfield_Tipo
         txtfield_Tipo = ft.TextField(width=170, height=35, read_only=True, content_padding=ft.padding.symmetric(horizontal=10), text_size=14)
         
         lv_resultadoBusca = ft.ListView(width=500, height=180, controls=[ft.RadioGroup(content=lista_de_remessas, on_change=radiogroup_changed)])
@@ -355,25 +424,30 @@ class ConsultarRemessa:
                                                     vertical_alignment=ft.CrossAxisAlignment.CENTER,
                                                     controls=[
                                                         ft.Column(
-                                                            spacing=2,
+                                                            spacing=0,
                                                             alignment=ft.MainAxisAlignment.CENTER,
                                                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                             controls=[
                                                                 ft.ElevatedButton(
-                                                                    width=100,
-                                                                    content=ft.Row(
+                                                                    #width=60,
+                                                                    height=60,
+                                                                    content=ft.Column(
+                                                                        spacing=0,
+                                                                        controls=
                                                                         [
-                                                                            ft.Icon(name=ft.icons.PRINT, size=45),
+                                                                            ft.Icon(name=ft.icons.PRINT, size=40),
+                                                                            ft.Text(value="Imprmir", size=13),
+                                                                            #ft.Text(value="Remessa", size=12)
                                                                         ],
                                                                         alignment=ft.MainAxisAlignment.CENTER,
-                                                                        vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                                                                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                                                         
                                                                     ),
                                                                     style=ft.ButtonStyle(
                                                                         shape=ft.RoundedRectangleBorder(radius=10),
                                                                     ),
                                                                     bgcolor="#eeeeee",
-                                                                    on_click=imprimir_remesa,
+                                                                    on_click=imprimir,
                                                                 ),
                                                             ]
                                                         )

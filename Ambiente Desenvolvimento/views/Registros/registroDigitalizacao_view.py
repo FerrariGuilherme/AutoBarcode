@@ -104,8 +104,12 @@ class DigitalizacaoView:
                 ##NESTA ETAPA O CODIGO "IF" VERIFICA SE A COMARCA SELECIONADA É DA CAPITAL E SE OS PROCESSOS BIPADOS É 0100 OU 0583
                 ##PARA VOLTAR AO CODIGO ORIGNAL - REMOVER LINHAS DO IF E PASS
                 ##E A PARTE DO ELSE SERA DO ESCOPO "if processo_formatado[21:] != cod_comarca[0][0]:"
-                if (cod_comarca[0][0] == "0014" and processo_formatado[21:] == "0100") or (cod_comarca[0][0] == "0014" and processo_formatado[21:] == "0100"):
+                if (cod_comarca[0][0] == "0014" and processo_formatado[21:] == "0100") or (cod_comarca[0][0] == "0014" and processo_formatado[21:] == "0583"):
                     pass
+                if (cod_comarca[0][0] == "0361" and processo_formatado[21:] == "0091") or (cod_comarca[0][0] == "0091" and processo_formatado[21:] == "0361"):
+                    pass
+                
+                
                 else:
                     page.dialog = ft.AlertDialog(title=ft.Text(f"Este processo não pertence a comarca de ('{cod_comarca[0][1]}')"), on_dismiss=None, open=True)
 
@@ -317,7 +321,7 @@ class DigitalizacaoView:
                     arquivo.write(json_string)
                 
                 #Adicionar os processo da remessa na tabela processo_remessa
-                bd.alterar_database(f'UPDATE "processos.remessa" SET processos = "{listagem_processos}" WHERE remessa = "{txtfield_remessa.value}" AND tipo = "DIGITALIZACAO"')
+                bd.alterar_database(f'UPDATE "processos.remessa" SET processos = "{listagem_processos}" WHERE remessa = "{txtfield_remessa.value}" AND tipo = "DIGITALIZACAO" and comarca = "{drop_comarca.value}"')
                 txtfield_scanner.disabled=True
                 #Adiciona os processos nas demais tabelas
                 for processo in listagem_processos:
