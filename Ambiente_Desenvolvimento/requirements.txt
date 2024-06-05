@@ -1,0 +1,8 @@
+flet
+flet_route
+certifi
+pywin32
+cryptocode
+reportlab
+PyPDF2
+auto-py-to-exe
