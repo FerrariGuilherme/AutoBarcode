@@ -8,6 +8,7 @@ from views.Adm.homeAdm_view import HomeAdmView
 from views.Adm.homeAdmProfile_view import HomeAdmProfile
 from views.Adm.cadastro_view import CadastroView
 from views.Adm.alterar_usuario import AlteraUsuarioView
+from views.Adm.alterar_remessa import AlterarRemessa
 from views.Registros.registroEntrada_view import EntradaView
 from views.Registros.registroSaida_view import SaidaView
 from views.Registros.registroDigitalizacao_view import DigitalizacaoView
@@ -46,6 +47,9 @@ def main(page: ft.Page):
         path(url="/registroDistribuicao", clear=False, view=DistribuicaoView().view),
         path(url="/Historico", clear=False, view=HistoricoView().view),
         path(url="/consultarRemessa", clear=False, view=ConsultarRemessa().view),
+        path(url="/alterarRemessa", clear=False, view=AlterarRemessa().view),
+        
+        
     ]
 
     Routing(

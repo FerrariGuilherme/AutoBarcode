@@ -1,10 +1,10 @@
 
 ambiente = "FISCAL 05/06"
 
-aponta_pdf = "\\\\10.16.96.144\\novo_auto_barcode\\pdf\\"
+aponta_pdf = ".\\pdf\\"
 
-caminho_json = "\\\\10.16.96.144\\novo_auto_barcode\\pdf\\JSON_Digitalizacao"
+caminho_json = ".\\pdf\\"
 
-aponta_database = "\\\\10.16.96.144\\novo_auto_barcode\\database\\database_producao.sqlite"
+aponta_database = ".\\database_producao.sqlite"
 
 

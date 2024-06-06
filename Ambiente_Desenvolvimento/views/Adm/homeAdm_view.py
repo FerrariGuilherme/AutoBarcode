@@ -34,6 +34,10 @@ class HomeAdmView:
         
         def telaAlterarUsuario(e):
             page.go("/alteraUsuario")
+            
+        def telaAlterarRemessa(e):
+            page.go("/alterarRemessa")
+        
         ##
         #COMPONENTES
         ##
@@ -144,8 +148,7 @@ class HomeAdmView:
                                     vertical_alignment=ft.CrossAxisAlignment.CENTER,
                                     controls=[
                                         ft.ElevatedButton(text="Cadastrar Usuario", height=50, width=200, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=telaCadastro),
-                                        ft.ElevatedButton(text="Excluir Usuario", on_click=None, height=50, disabled=True, width=200, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5))),
-                                        
+                                        ft.ElevatedButton(text="Alterar Remessa", on_click=telaAlterarRemessa, height=50, width=200, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5))),
                                         ],
                                     ),
                                 ft.Row(
