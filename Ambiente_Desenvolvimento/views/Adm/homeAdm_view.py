@@ -37,6 +37,9 @@ class HomeAdmView:
             
         def telaAlterarRemessa(e):
             page.go("/alterarRemessa")
+            
+        def telaHistoricoAdm(e):
+            page.go("/HistoricoAdm")
         
         ##
         #COMPONENTES
@@ -158,7 +161,6 @@ class HomeAdmView:
                                     vertical_alignment=ft.CrossAxisAlignment.CENTER,
                                     controls=[
                                         ft.ElevatedButton(text="Alterar Usuario" ,on_click=telaAlterarUsuario, height=50, width=200, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5))),
-                                        
                                         ],
                                     ),
                                 ft.Row(
@@ -166,9 +168,8 @@ class HomeAdmView:
                                     alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                                     vertical_alignment=ft.CrossAxisAlignment.CENTER,
                                     controls=[
-                                        ft.ElevatedButton(text="Contultar Historico", on_click=None, disabled=True, height=50, width=200, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5))),
+                                        ft.ElevatedButton(text="Contultar Historico", on_click=telaHistoricoAdm,  height=50, width=200, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5))),
                                         ft.ElevatedButton(text="Em Desenvolvimento", on_click=None, disabled=True, height=50, width=200, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5))),
-                                        
                                         ],
                                     ),
                                 ],  

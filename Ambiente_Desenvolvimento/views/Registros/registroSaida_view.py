@@ -313,7 +313,7 @@ class SaidaView:
                 
                 
                 #Adicionar os processo da remessa na tabela processo_remessa
-                bd.alterar_database(f'UPDATE "processos.remessa" SET processos = "{listagem_processos}" WHERE remessa = "{txtfield_remessa.value}" AND tipo = "SAIDA" and comarca = "{drop_comarca.value}"')
+                bd.alterar_database(f'UPDATE "processos.remessa" SET processos = "{listagem_processos}" WHERE remessa = "{txtfield_remessa.value}" AND tipo = "SAIDA" and comarca = "{bd.consultar_database(f"SELECT comarca FROM 'sistema.comarca' WHERE comarca_text = '{"0014 - Capital / Execuções Fiscais Estaduais"}'")[0][0]}"')
                 txtfield_scanner.disabled=True
                 #Adiciona os processos nas demais tabelas
                 for processo in listagem_processos:

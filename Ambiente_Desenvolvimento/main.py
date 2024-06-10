@@ -9,6 +9,7 @@ from views.Adm.homeAdmProfile_view import HomeAdmProfile
 from views.Adm.cadastro_view import CadastroView
 from views.Adm.alterar_usuario import AlteraUsuarioView
 from views.Adm.alterar_remessa import AlterarRemessa
+from views.Adm.historicoAdm_view import HistoricoAdmView
 from views.Registros.registroEntrada_view import EntradaView
 from views.Registros.registroSaida_view import SaidaView
 from views.Registros.registroDigitalizacao_view import DigitalizacaoView
@@ -39,6 +40,7 @@ def main(page: ft.Page):
         path(url="/homeProfile", clear=False, view=HomeProfile().view),
         path(url="/homeAdm", clear=False, view=HomeAdmView().view),
         path(url="/homeAdmProfile", clear=False, view=HomeAdmProfile().view),
+        path(url="/HistoricoAdm", clear=False, view=HistoricoAdmView().view),
         path(url="/cadastro", clear=False, view=CadastroView().view),
         path(url="/alteraUsuario", clear=False, view=AlteraUsuarioView().view),
         path(url="/registroEntrada", clear=False, view=EntradaView().view),
@@ -48,6 +50,8 @@ def main(page: ft.Page):
         path(url="/Historico", clear=False, view=HistoricoView().view),
         path(url="/consultarRemessa", clear=False, view=ConsultarRemessa().view),
         path(url="/alterarRemessa", clear=False, view=AlterarRemessa().view),
+        
+        
         
         
     ]
