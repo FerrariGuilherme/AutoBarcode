@@ -217,7 +217,10 @@ class AlterarRemessa:
             close_dialog(e)
             for processo in processos_da_remessa: 
                 
-                bd.alterar_database(f"INSERT INTO 'processos.historico' (processo, historico) VALUES ('{processo.controls[0].value}', '')")
+                if len(bd.consultar_database(f"SELECT processo FROM 'processos.historico' WHERE processo = '{processo.controls[0].value}'")) >= 1:
+                    pass
+                else:
+                    bd.alterar_database(f"INSERT INTO 'processos.historico' (processo, historico) VALUES ('{processo.controls[0].value}', '')")
                 bd.alterar_database(f"UPDATE 'processos.pendente_de_saida' SET processo = '{processo.controls[0].value}' WHERE processo = '{processos_da_remessa_backup[indice][0]}'")
                 bd.alterar_database(f"UPDATE 'processos.registro' SET processo = '{processo.controls[0].value}' WHERE processo = '{processos_da_remessa_backup[indice][0]}'")
                 bd.alterar_database(f"UPDATE 'processos.remessa' SET processos = REPLACE(processos, '{processos_da_remessa_backup[indice][0]}', '{processo.controls[0].value}') WHERE processos LIKE '%{processos_da_remessa_backup[indice][0]}%';")

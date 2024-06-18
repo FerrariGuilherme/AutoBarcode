@@ -309,9 +309,9 @@ class EntradaView:
                 #Adiciona os processos nas demais tabelas
                 for processo in listagem_processos:
                     #Adiciona os processo da remessa na tabela processo.registro
-                    bd.alterar_database(f"INSERT INTO 'processos.registro' (processo, registro, data, remessa, responsavel, observacao) VALUES ('{processo[0]}', 'ENTRADA', '{txtfield_data.value}', '{txtfield_remessa.value}', '{usuario[0][1]}', '')")
+                    bd.alterar_database(f"INSERT INTO 'processos.registro' (processo, registro, data, remessa, responsavel, observacao, comarca) VALUES ('{processo[0]}', 'ENTRADA', '{txtfield_data.value}', '{txtfield_remessa.value}', '{usuario[0][1]}', '', '{comarca}')")
                     #Adiciona os processo da remessa na tabela processos.pendente_de_saida
-                    bd.alterar_database(f"INSERT INTO 'processos.pendente_de_saida' (processo, situacao_atual) VALUES ('{processo[0]}','ENTRADA')")
+                    bd.alterar_database(f"INSERT INTO 'processos.pendente_de_saida' (processo, situacao_atual, comarca) VALUES ('{processo[0]}','ENTRADA', '{comarca}')")
                     #Varivael - texto que sera adicionado no historico do processo
                     historico = f"""____________________________________________________________
 

@@ -16,13 +16,13 @@ class LoginView:
         
         versao = "1.3"
         atual = ""
-        if bd.consultar_database("SELECT * FROM versionamento WHERE atual = 'True'")[0][0] != versao:
-            txtfield_email.read_only = True
-            txtfield_senha.read_only = True
-            atual = "Versão Desatualizada"
+        # if bd.consultar_database("SELECT * FROM versionamento WHERE atual = 'True'")[0][0] != versao:
+        #     txtfield_email.read_only = True
+        #     txtfield_senha.read_only = True
+        #     atual = "Versão Desatualizada"
             
-        else:
-            atual = ""   
+        # else:
+        #     atual = ""   
         
         # Ação para liberar login
         def login(e):
